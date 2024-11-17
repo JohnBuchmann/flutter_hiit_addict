@@ -1,33 +1,23 @@
 import 'package:flutter/material.dart';
-
+import 'package:hiit_addict/services/theme_service.dart';
 import '../widgets/app_drawer.dart';
-import 'favorites_screen.dart';
 import 'preferences_screen.dart';
-import 'timers_screen.dart';
-import 'videos_screen.dart';
 
 class HomeScreen extends StatefulWidget {
-  final Function toggleTheme;
-  final bool isDarkMode;
-
-  const HomeScreen({
-    super.key,
-    required this.toggleTheme,
-    required this.isDarkMode,
-  });
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
-
-  final List<Widget> _screens = [
-    const TimersScreen(tempText: 'Hello'),
-    const VideosScreen(),
-    const FavoritesScreen(),
+  final List<Widget> _screens = const [
+    Center(child: Text('Timers...')),
+    Center(child: Text('Videos')),
+    Center(child: Text('Favorites')),
   ];
+
+  int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -35,15 +25,32 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  _showAddTimerDialog() {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Add Timer'),
+        actions: [
+          TextButton(
+              onPressed: () => Navigator.pop(context), child: const Text('OK')),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final themeService = ThemeInheritor.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('HIIT Addict'),
         actions: [
           IconButton(
-            icon: Icon(widget.isDarkMode ? Icons.light_mode : Icons.dark_mode),
-            onPressed: () => widget.toggleTheme(),
+            icon: Icon(themeService.isDarkMode.value
+                ? Icons.light_mode
+                : Icons.dark_mode),
+            onPressed: themeService.toggleTheme,
           ),
           PopupMenuButton<String>(
             onSelected: (value) {
@@ -88,6 +95,10 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'Favorites',
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _showAddTimerDialog,
+        child: const Icon(Icons.add),
       ),
     );
   }
