@@ -14,7 +14,7 @@ class TimersScreen extends StatelessWidget {
             context: context,
             builder: (BuildContext context) => AlertDialog(
               title: const Text('Alert'),
-              content: const Text('This is an alert dialog.......'),
+              content: const Text('This is an alert dialog!!!'),
               actions: [
                 TextButton(
                     onPressed: () => Navigator.pop(context),

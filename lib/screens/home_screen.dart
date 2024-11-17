@@ -24,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   final List<Widget> _screens = [
-    const TimersScreen(tempText: 'Hello, this is the timers screen'),
+    const TimersScreen(tempText: 'Hello'),
     const VideosScreen(),
     const FavoritesScreen(),
   ];

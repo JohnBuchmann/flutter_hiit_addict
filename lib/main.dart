@@ -17,8 +17,6 @@ class _MyAppState extends State<MyApp> {
   bool _isDarkMode = true;
 
   void toggleTheme() {
-    print('.......toggleTheme called');
-
     setState(() {
       _isDarkMode = !_isDarkMode;
     });
