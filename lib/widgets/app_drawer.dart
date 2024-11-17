@@ -12,13 +12,12 @@ class AppDrawer extends StatelessWidget {
         children: [
           DrawerHeader(
             decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.primary,
+              color: Colors.grey[800],
             ),
             child: const Text(
               'App Menu',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 24,
               ),
             ),
           ),

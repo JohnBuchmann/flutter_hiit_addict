@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/home_screen.dart';
+import 'app_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,9 +14,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool _isDarkMode = false;
+  bool _isDarkMode = true;
 
   void toggleTheme() {
+    print('.......toggleTheme called');
+
     setState(() {
       _isDarkMode = !_isDarkMode;
     });
@@ -25,13 +28,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'My App',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blue,
-          brightness: _isDarkMode ? Brightness.dark : Brightness.light,
-        ),
-        useMaterial3: true,
-      ),
+      theme: _isDarkMode ? AppTheme.darkTheme : AppTheme.lightTheme,
       home: HomeScreen(toggleTheme: toggleTheme, isDarkMode: _isDarkMode),
     );
   }
