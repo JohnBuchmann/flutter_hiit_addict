@@ -3,6 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../widgets/app_drawer.dart';
 import 'preferences_screen.dart';
 import '../providers/theme_provider.dart';
+import 'tab_screens/timers_screen.dart';
+import 'tab_screens/videos_screen.dart';
+import 'tab_screens/favorites_screen.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -13,9 +16,9 @@ class HomeScreen extends ConsumerStatefulWidget {
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
   final List<Widget> _screens = const [
-    Center(child: Text('Timers')),
-    Center(child: Text('Videos')),
-    Center(child: Text('Favorites')),
+    TimersScreen(),
+    VideosScreen(),
+    FavoritesScreen(),
   ];
 
   int _selectedIndex = 0;
@@ -24,19 +27,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     setState(() {
       _selectedIndex = index;
     });
-  }
-
-  _showAddTimerDialog() {
-    return showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Add Timer'),
-        actions: [
-          TextButton(
-              onPressed: () => Navigator.pop(context), child: const Text('OK')),
-        ],
-      ),
-    );
   }
 
   @override
@@ -94,10 +84,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             label: 'Favorites',
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _showAddTimerDialog,
-        child: const Icon(Icons.add),
       ),
     );
   }

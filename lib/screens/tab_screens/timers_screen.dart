@@ -7,24 +7,25 @@ class TimersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text(tempText)),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {
-      //     showDialog(
-      //       context: context,
-      //       builder: (BuildContext context) => AlertDialog(
-      //         title: const Text('Alert bro'),
-      //         content: const Text('This is an alert dialog......'),
-      //         actions: [
-      //           TextButton(
-      //               onPressed: () => Navigator.pop(context),
-      //               child: const Text('Close')),
-      //         ],
-      //       ),
-      //     );
-      //   },
-      //   child: const Icon(Icons.access_time),
-      // ),
+      body: const Center(child: Text('hi hi')),
+      floatingActionButton: FloatingActionButton(
+        shape: const CircleBorder(),
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: const Text('Alert bro'),
+              content: const Text('This is an alert dialog......'),
+              actions: [
+                TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('Close')),
+              ],
+            ),
+          );
+        },
+        child: const Icon(Icons.access_time),
+      ),
     );
   }
 }
