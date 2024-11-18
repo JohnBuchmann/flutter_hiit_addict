@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:hiit_addict/services/theme_service.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../widgets/app_drawer.dart';
 import 'preferences_screen.dart';
+import '../providers/theme_provider.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
   final List<Widget> _screens = const [
-    Center(child: Text('Timers...')),
+    Center(child: Text('Timers')),
     Center(child: Text('Videos')),
     Center(child: Text('Favorites')),
   ];
@@ -40,17 +41,15 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final themeService = ThemeInheritor.of(context);
+    final isDarkMode = ref.watch(themeProvider);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('HIIT Addict'),
         actions: [
           IconButton(
-            icon: Icon(themeService.isDarkMode.value
-                ? Icons.light_mode
-                : Icons.dark_mode),
-            onPressed: themeService.toggleTheme,
+            icon: Icon(isDarkMode ? Icons.light_mode : Icons.dark_mode),
+            onPressed: () => ref.read(themeProvider.notifier).toggleTheme(),
           ),
           PopupMenuButton<String>(
             onSelected: (value) {

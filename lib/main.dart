@@ -1,36 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'screens/home_screen.dart';
 import 'app_theme.dart';
-import 'services/theme_service.dart';
+import 'providers/theme_provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final isDarkMode = ref.watch(themeProvider);
 
-class _MyAppState extends State<MyApp> {
-  final _themeService = ThemeService();
-
-  @override
-  Widget build(BuildContext context) {
-    return ThemeInheritor(
-      themeService: _themeService,
-      child: ValueListenableBuilder<bool>(
-        valueListenable: _themeService.isDarkMode,
-        builder: (context, isDarkMode, child) {
-          return MaterialApp(
-            title: 'HIIT Addict',
-            theme: isDarkMode ? AppTheme.darkTheme : AppTheme.lightTheme,
-            home: const HomeScreen(),
-          );
-        },
-      ),
+    return MaterialApp(
+      title: 'HIIT Addict',
+      theme: isDarkMode ? AppTheme.darkTheme : AppTheme.lightTheme,
+      home: const HomeScreen(),
     );
   }
 }
